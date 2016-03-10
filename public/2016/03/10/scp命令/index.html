@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -57,19 +57,19 @@
 
 
 
-<meta name="description" content="First hexo post
-12345$ hexo init$ hexo new$ hexo g$ hexo s$ hexo d">
+<meta name="description" content="scp命令这篇文章主要是参考了http://blog.csdn.net/jiangkai_nju/article/details/7338177这个博客，要看详细的内容可以参考这个博客进行学习研究，但是我觉得在以下的一些基本可以满足我们的文件传输要求了。
+scp是linux中功能最强大的文件传输命令，可以实现从本地到远程以及远程到本地的轻松文件传输操作。下面简单的讲解一些关于scp命令的操作，给有">
 <meta property="og:type" content="article">
-<meta property="og:title" content="First Hexo Post">
-<meta property="og:url" content="http://shaohuan.top/2016/01/23/Frist Post/index.html">
+<meta property="og:title" content="scp命令">
+<meta property="og:url" content="http://shaohuan.top/2016/03/10/scp命令/index.html">
 <meta property="og:site_name" content="空房间">
-<meta property="og:description" content="First hexo post
-12345$ hexo init$ hexo new$ hexo g$ hexo s$ hexo d">
-<meta property="og:updated_time" content="2016-01-26T05:00:23.390Z">
+<meta property="og:description" content="scp命令这篇文章主要是参考了http://blog.csdn.net/jiangkai_nju/article/details/7338177这个博客，要看详细的内容可以参考这个博客进行学习研究，但是我觉得在以下的一些基本可以满足我们的文件传输要求了。
+scp是linux中功能最强大的文件传输命令，可以实现从本地到远程以及远程到本地的轻松文件传输操作。下面简单的讲解一些关于scp命令的操作，给有">
+<meta property="og:updated_time" content="2016-03-10T12:33:25.866Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="First Hexo Post">
-<meta name="twitter:description" content="First hexo post
-12345$ hexo init$ hexo new$ hexo g$ hexo s$ hexo d">
+<meta name="twitter:title" content="scp命令">
+<meta name="twitter:description" content="scp命令这篇文章主要是参考了http://blog.csdn.net/jiangkai_nju/article/details/7338177这个博客，要看详细的内容可以参考这个博客进行学习研究，但是我觉得在以下的一些基本可以满足我们的文件传输要求了。
+scp是linux中功能最强大的文件传输命令，可以实现从本地到远程以及远程到本地的轻松文件传输操作。下面简单的讲解一些关于scp命令的操作，给有">
 
 
 
@@ -87,7 +87,7 @@
   };
 </script>
 
-  <title> First Hexo Post | 空房间 </title>
+  <title> scp命令 | 空房间 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -237,7 +237,7 @@
             
             
               
-                First Hexo Post
+                scp命令
               
             
           </h1>
@@ -249,19 +249,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-23T05:15:37-08:00" content="2016-01-23">
-              2016-01-23
+            <time itemprop="dateCreated" datetime="2016-03-10T20:20:07-08:00" content="2016-03-10">
+              2016-03-10
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/23/Frist Post/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/23/Frist Post/" itemprop="commentsCount"></span>
+                <a href="/2016/03/10/scp命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/10/scp命令/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -282,8 +301,35 @@
       
 
       
-        <p>First hexo post</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br><span class="line">$ hexo new</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+        <h1 id="scp_u547D_u4EE4"><a href="#scp_u547D_u4EE4" class="headerlink" title="scp命令"></a>scp命令</h1><p>这篇文章主要是参考了<a href="http://blog.csdn.net/jiangkai_nju/article/details/7338177" target="_blank" rel="external">http://blog.csdn.net/jiangkai_nju/article/details/7338177</a>这个博客，要看详细的内容可以参考这个博客进行学习研究，但是我觉得在以下的一些基本可以满足我们的文件传输要求了。</p>
+<p>scp是linux中功能最强大的文件传输命令，可以实现从本地到远程以及远程到本地的轻松文件传输操作。下面简单的讲解一些关于scp命令的操作，给有用的人一些参考：</p>
+<p>首先是本地到远程的操作：操作的格式如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scp <span class="built_in">local</span>_file remote_username@remote_ip:remote_folder</span><br><span class="line">或者</span><br><span class="line">scp <span class="built_in">local</span>_file remote_username@remote_ip:remote_file</span><br><span class="line">或者</span><br><span class="line">scp <span class="built_in">local</span>_file remote_ip:remote_folder</span><br><span class="line">或者</span><br><span class="line">scp <span class="built_in">local</span>_file remote_ip:remote_file</span><br></pre></td></tr></table></figure>
+<p>第1,2个指定了用户名，命令执行后需要再输入密码，第1个仅指定了远程的目录，文件名字不变，第2个指定了文件名；<br>第3,4个没有指定用户名，命令执行后需要输入用户名和密码，第3个仅指定了远程的目录，文件名字不变，第4个指定了文件名；</p>
+<ul>
+<li><p>例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scp /home/space/music/<span class="number">1</span>.mp3 root@www.cumt.edu.cn:/home/root/others/music</span><br><span class="line">scp /home/space/music/<span class="number">1</span>.mp3 root@http://www.cumt.edu.cn:/home/root/others/music/<span class="number">001</span>.mp3</span><br><span class="line">scp /home/space/music/<span class="number">1</span>.mp3 www.cumt.edu.cn:/home/root/others/music</span><br><span class="line">scp /home/space/music/<span class="number">1</span>.mp3 http://www.cumt.edu.cn:/home/root/others/music/<span class="number">001</span>.mp3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制目录：</p>
+</li>
+<li>命令格式：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp -r <span class="built_in">local</span>_folder remote_username@remote_ip:remote_folder</span><br><span class="line">或者</span><br><span class="line">scp -r <span class="built_in">local</span>_folder remote_ip:remote_folder</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>第1个指定了用户名，命令执行后需要再输入密码；<br>第2个没有指定用户名，命令执行后需要输入用户名和密码；</p>
+<ul>
+<li>例子：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r /home/space/music/ root@www.cumt.edu.cn:/home/root/others/</span><br><span class="line">scp -r /home/space/music/ www.cumt.edu.cn:/home/root/others/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面 命令 将 本地 music 目录 复制 到 远程 others 目录下，即复制后有 远程 有 ../others/music<br>2、是实现从远程到本地的文件传输操作：<br>从 远程 复制到 本地，只要将 从 本地 复制到 远程 的命令 的 后2个参数 调换顺序 即可；<br>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp root@www.cumt.edu.cn:/home/root/others/music /home/space/music/<span class="number">1</span>.mp3</span><br><span class="line">scp -r www.cumt.edu.cn:/home/root/others/ /home/space/music/</span><br></pre></td></tr></table></figure></p>
+<p>最简单的应用如下 :<br>scp 本地用户名 @IP 地址 : 文件名 1 远程用户名 @IP 地址 : 文件名 2<br>[ 本地用户名 @IP 地址 :] 可以不输入 , 可能需要输入远程用户名所对应的密码 .<br>可能有用的几个参数 :<br>-v 和大多数 linux 命令中的 -v 意思一样 , 用来显示进度 . 可以用来查看连接 , 认证 , 或是配置错误 .<br>-C 使能压缩选项 .<br>-P 选择端口 . 注意 -p 已经被 rcp 使用 .<br>-4 强行使用 IPV4 地址 .<br>-6 强行使用 IPV6 地址 .<br>Linux scp命令的使用方法应该可以满足大家对Linux文件和目录的复制使用了</p>
+<p>#scp命令的一个实例<br>Linux下scp的用法<br>scp就是secure copy，一个在linux下用来进行远程拷贝文件的命令。<br>有时我们需要获得远程服务器上的某个文件，该服务器既没有配置ftp服务器，也没有做共享，无法通过常规途径获得文件时，只需要通过简单的scp命令便可达到目的。<br>一、将本机文件复制到远程服务器上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#scp /home/administrator/news.txt root@192.168.6.129:/etc/squid</span><br></pre></td></tr></table></figure></p>
+<p>/home/administrator/ 本地文件的绝对路径<br>news.txt 要复制到服务器上的本地文件<br>root 通过root用户登录到远程服务器（也可以使用其他拥有同等权限的用户）<br>192.168.6.129 远程服务器的ip地址（也可以使用域名或机器名）<br>/etc/squid 将本地文件复制到位于远程服务器上的路径</p>
+<p>如图通过root用户登录远程服务器，输入yes表示同意建立ssh连接</p>
+<p>按提示输入root用户的密码</p>
+<p>如图所示建立连接后开始传输文件，显示百分比、实际时间和传送速度等信息<br>二、将远程服务器上的文件复制到本机<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#scp remote@www.abc.com:/usr/local/sin.sh /home/administrator</span><br></pre></td></tr></table></figure></p>
+<p>remote 通过remote用户登录到远程服务器（也可以使用其他拥有同等权限的用户）<br>www.abc.com 远程服务器的域名（当然也可以使用该服务器ip地址）<br>/usr/local/sin.sh 欲复制到本机的位于远程服务器上的文件<br>/home/administrator 将远程文件复制到本地的绝对路径<br>注意两点：<br>1.如果远程服务器防火墙有特殊限制，scp便要走特殊端口，具体用什么端口视情况而定，命令格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#scp -p 4588 remote@www.abc.com:/usr/local/sin.sh /home/administrator</span><br></pre></td></tr></table></figure></p>
+<p>2.使用scp要注意所使用的用户是否具有可读取远程服务器相应文件的权限。</p>
+<p>附：scp命令也符合 scp 源地址  目的地址 的写法</p>
 
       
     </div>
@@ -292,7 +338,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
           
         </div>
       
@@ -301,13 +347,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/03/10/Andorid Studio快捷键/" rel="next" title="Android Studio常用快捷键">
+                <i class="fa fa-chevron-left"></i> Android Studio常用快捷键
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/02/01/Android学习笔记（1）-写在前面/" rel="prev" title="Android学习笔记（1）">
-                Android学习笔记（1） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -333,8 +379,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/23/Frist Post/"
-           data-title="First Hexo Post" data-url="http://shaohuan.top/2016/01/23/Frist Post/">
+      <div class="ds-thread" data-thread-key="2016/03/10/scp命令/"
+           data-title="scp命令" data-url="http://shaohuan.top/2016/03/10/scp命令/">
       </div>
     
   </div>
@@ -459,7 +505,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#scp_u547D_u4EE4"><span class="nav-number">1.</span> <span class="nav-text">scp命令</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="Android | study," />
 
 
 
@@ -57,19 +57,19 @@
 
 
 
-<meta name="description" content="First hexo post
-12345$ hexo init$ hexo new$ hexo g$ hexo s$ hexo d">
+<meta name="description" content="Android学习笔记（4）:  Broadcast1. BroadcastReceiver 
+广播接收者（ BroadcastReceiver ）用于接收广播 Intent ，广播 Intent 的发送是通过调用 Context.sendBroadcast() `Context.sendOrderedBroadcast()、或 Context.sendStickyBroadcast()方法来实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="First Hexo Post">
-<meta property="og:url" content="http://shaohuan.top/2016/01/23/Frist Post/index.html">
+<meta property="og:title" content="Android学习笔记（4）:  Broadcast">
+<meta property="og:url" content="http://shaohuan.top/2016/02/01/Android学习笔记（4）-Broadcast/index.html">
 <meta property="og:site_name" content="空房间">
-<meta property="og:description" content="First hexo post
-12345$ hexo init$ hexo new$ hexo g$ hexo s$ hexo d">
-<meta property="og:updated_time" content="2016-01-26T05:00:23.390Z">
+<meta property="og:description" content="Android学习笔记（4）:  Broadcast1. BroadcastReceiver 
+广播接收者（ BroadcastReceiver ）用于接收广播 Intent ，广播 Intent 的发送是通过调用 Context.sendBroadcast() `Context.sendOrderedBroadcast()、或 Context.sendStickyBroadcast()方法来实现">
+<meta property="og:updated_time" content="2016-03-10T12:27:21.762Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="First Hexo Post">
-<meta name="twitter:description" content="First hexo post
-12345$ hexo init$ hexo new$ hexo g$ hexo s$ hexo d">
+<meta name="twitter:title" content="Android学习笔记（4）:  Broadcast">
+<meta name="twitter:description" content="Android学习笔记（4）:  Broadcast1. BroadcastReceiver 
+广播接收者（ BroadcastReceiver ）用于接收广播 Intent ，广播 Intent 的发送是通过调用 Context.sendBroadcast() `Context.sendOrderedBroadcast()、或 Context.sendStickyBroadcast()方法来实现">
 
 
 
@@ -87,7 +87,7 @@
   };
 </script>
 
-  <title> First Hexo Post | 空房间 </title>
+  <title> Android学习笔记（4）:  Broadcast | 空房间 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -237,7 +237,7 @@
             
             
               
-                First Hexo Post
+                Android学习笔记（4）:  Broadcast
               
             
           </h1>
@@ -249,19 +249,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-23T05:15:37-08:00" content="2016-01-23">
-              2016-01-23
+            <time itemprop="dateCreated" datetime="2016-02-01T06:25:48-08:00" content="2016-02-01">
+              2016-02-01
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Android学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/23/Frist Post/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/23/Frist Post/" itemprop="commentsCount"></span>
+                <a href="/2016/02/01/Android学习笔记（4）-Broadcast/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/01/Android学习笔记（4）-Broadcast/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -282,8 +301,21 @@
       
 
       
-        <p>First hexo post</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br><span class="line">$ hexo new</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+        <h1 id="Android_u5B66_u4E60_u7B14_u8BB0_uFF084_uFF09_3A_Broadcast"><a href="#Android_u5B66_u4E60_u7B14_u8BB0_uFF084_uFF09_3A_Broadcast" class="headerlink" title="Android学习笔记（4）:  Broadcast"></a>Android学习笔记（4）:  Broadcast</h1><p><strong>1. BroadcastReceiver</strong> </p>
+<p>广播接收者（ BroadcastReceiver ）用于接收广播 Intent ，广播 Intent 的发送是通过调用 <code>Context.sendBroadcast()</code> <code>`Context.sendOrderedBroadcast()</code>、或 Context.sendStickyBroadcast()方法来实现的。通常一个广播 Intent 可以被订阅了此 Intent 的多个广播接收者所接收。<br>广播是一种广泛运用的在应用程序之间传输信息的机制 。而BroadcastReceiver 是对发送出来的广播进行过滤接收并响应的一类组件；来自普通应用程序，如一个应用程序通知其他应用程序某些数据已经下载完毕。BroadcastReceiver 自身并不实现图形用户界面，但是当它收到某个通知后， BroadcastReceiver 可以启动 Activity 作为响应，或者通过 NotificationMananger 提醒用户，或者启动 Service 等等。<br>(1).笼统点说就是用来传输数据的，具体点说：1) 实现了不同app之间数据传输与共享，只要是和发送广播的action相同的接收者都能接受到这个广播。典型的app就是android自带的短信，电话等广播，只要实现了他们的action的广播，就能接收他们的数据了，以便做出一些处理，比如说拦截系统短信，拦截骚扰电话等</p>
+<p>(2).起到通知作用，比如在service中要通知主程序跟新主程序UI等。service是没有界面的，所以不能直接获得主程序中的控件，这样就只能在主程序中实现一个广播接受者专门用来接受service发来的数据格通知了。</p>
+<p><strong>2. android提供了2种注册广播接受者的形式</strong></p>
+<p>1) 静态注册<br> 静态注册方式是在AndroidManifest.xml的application里面定义receiver并设置要接收的action。<br>静态方式的特点：不管该app是否处于活动状态都会进行监听。<br>example：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">receiver</span> <span class="attribute">android:name</span>=<span class="value">"MyReceiver"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">intent-filter</span> <span class="attribute">android:priority</span> = "<span class="attribute">1000</span>"&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">action</span> <span class="attribute">android:name</span>=<span class="value">"MyReceiver_Action"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中，MyReceiver为继承BroadcastReceiver的类，重写了OnReceiver方法，并在OnReceiver方法中对广播进行处理。<intent-filter>标签设置过滤器，接受指定action广播。</intent-filter></p>
+<p>2)动态注册<br>动态注册方式在activity里调用函数来注册和静态的内容差不多。一个形参是Receiver，一个是intentFilter，其中里面是要接收的action。</p>
+<p>动态注册的特点:在代码中进行注册后，当app关闭后，就不在进行监听了。</p>
+<p>example:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> MyReceiver receiver = <span class="keyword">new</span>  MyReceiver();</span><br><span class="line"><span class="comment">//创建过滤器，并指定action，使之用于接收同action的广播</span></span><br><span class="line">IntentFilter filter = <span class="keyword">new</span> IntentFilter(<span class="string">"MyReceiver_Action"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//注册广播接收器</span></span><br><span class="line"> registerReceiver(receiver, filter);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定广播目标Action</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">"MyReceiver_Action"</span>);</span><br><span class="line"><span class="comment">// 可通过Intent携带消息</span></span><br><span class="line">intent.putExtra(<span class="string">"msg"</span>, <span class="string">"发送广播"</span>);</span><br><span class="line"><span class="comment">// 发送广播消息</span></span><br><span class="line">sendBroadcast(intent);</span><br><span class="line"><span class="comment">//注销广播接收器</span></span><br><span class="line">unregisterReceiver(receiver);</span><br><span class="line">注：</span><br><span class="line"><span class="number">1</span>.一般在onResume()中注册BroadcastReceiver，在onPuase()中注销BroadcastReceiver。</span><br><span class="line"><span class="number">2</span>.一个BroadcastReceiver 对象只有在被调用onReceive(Context, Intent)时才有效，当从该函数返回后，该对象就无效的了，结束生命周期。</span><br></pre></td></tr></table></figure></p>
+<p>Android 中广播的生命周期，它并不像 Activity 一样复杂，运行原理很简单</p>
+<blockquote>
+<p>调用对象-&gt;实现onReceive()-&gt;结束</p>
+</blockquote>
+<p>生命周期只有十秒左右，如果在<code>onReceive()</code>内做超过十秒内的事情，就会报错 。</p>
+<p>每次广播到来时 , 会重新创建 BroadcastReceiver 对象 , 并且调用 <code>onReceive()</code>方法 , 执行完以后 , 该对象即被销毁 . 当<code>onReceive()</code> 方法在 10 秒内没有执行完毕， Android 会认为该程序无响应 . 所以在<br>BroadcastReceiver 里不能做一些比较耗时的操作 , 否侧会弹出 <code>ANR(Application No Response)</code> 的对话框  。</p>
 
       
     </div>
@@ -292,7 +324,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/Android-study/" rel="tag">#Android | study</a>
           
         </div>
       
@@ -301,12 +333,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/02/01/Android学习笔记（3）-Service/" rel="next" title="Android学习笔记（3）:  Service">
+                <i class="fa fa-chevron-left"></i> Android学习笔记（3）:  Service
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/02/01/Android学习笔记（1）-写在前面/" rel="prev" title="Android学习笔记（1）">
-                Android学习笔记（1） <i class="fa fa-chevron-right"></i>
+              <a href="/2016/02/01/Android学习笔记（5）-SharedPreferences及文件存取/" rel="prev" title="Android学习笔记（5）: SharedPreferences及文件存取">
+                Android学习笔记（5）: SharedPreferences及文件存取 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -333,8 +369,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/23/Frist Post/"
-           data-title="First Hexo Post" data-url="http://shaohuan.top/2016/01/23/Frist Post/">
+      <div class="ds-thread" data-thread-key="2016/02/01/Android学习笔记（4）-Broadcast/"
+           data-title="Android学习笔记（4）:  Broadcast" data-url="http://shaohuan.top/2016/02/01/Android学习笔记（4）-Broadcast/">
       </div>
     
   </div>
@@ -459,7 +495,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android_u5B66_u4E60_u7B14_u8BB0_uFF084_uFF09_3A_Broadcast"><span class="nav-number">1.</span> <span class="nav-text">Android学习笔记（4）:  Broadcast</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
