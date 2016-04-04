@@ -1,0 +1,804 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,study," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="对于NEW_MTK6580m，Android6.0代码的Settings.Audioprofile模块已经看了一段时间，但之前的查看主要是围绕模块结构以及组织关系。这两天主要针对Audioprofile模块的铃声选择进行分析，现对其进行总结。
+首先，从铃声选择的父界面(即选择进入铃声选择的界面，Settings-&amp;gt;Sound&amp;amp;notfication-&amp;gt;右上角设置按钮)开始，父界">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Perference_onClick总结">
+<meta property="og:url" content="http://shaohuan.top/2016/03/20/Perference_onClick总结/index.html">
+<meta property="og:site_name" content="空房间">
+<meta property="og:description" content="对于NEW_MTK6580m，Android6.0代码的Settings.Audioprofile模块已经看了一段时间，但之前的查看主要是围绕模块结构以及组织关系。这两天主要针对Audioprofile模块的铃声选择进行分析，现对其进行总结。
+首先，从铃声选择的父界面(即选择进入铃声选择的界面，Settings-&amp;gt;Sound&amp;amp;notfication-&amp;gt;右上角设置按钮)开始，父界">
+<meta property="og:image" content="http://i4.piimg.com/9757e7ff169c115a.png">
+<meta property="og:updated_time" content="2016-04-04T07:18:04.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Perference_onClick总结">
+<meta name="twitter:description" content="对于NEW_MTK6580m，Android6.0代码的Settings.Audioprofile模块已经看了一段时间，但之前的查看主要是围绕模块结构以及组织关系。这两天主要针对Audioprofile模块的铃声选择进行分析，现对其进行总结。
+首先，从铃声选择的父界面(即选择进入铃声选择的界面，Settings-&amp;gt;Sound&amp;amp;notfication-&amp;gt;右上角设置按钮)开始，父界">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Perference_onClick总结 | 空房间 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?4eee87cf278e1d608c37d45693bdfee3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">空房间</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">邵欢的空房间</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Perference_onClick总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-20T13:12:43-07:00" content="2016-03-20">
+              2016-03-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Android学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/20/Perference_onClick总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/20/Perference_onClick总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>   对于NEW_MTK6580m，Android6.0代码的Settings.Audioprofile模块已经看了一段时间，但之前的查看主要是围绕模块结构以及组织关系。<br>这两天主要针对Audioprofile模块的铃声选择进行分析，现对其进行总结。</p>
+<p>首先，从铃声选择的父界面(即选择进入铃声选择的界面，Settings-&gt;Sound&amp;notfication-&gt;右上角设置按钮)开始，<br>父界面代码位置/alps/packages/apps/Settings/src/com/mediatek/audioprofile/Editprofile.java<br>根据其onCreate()方法中<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">addPreferencesFromResource(R.xml.edit_profile_prefs);</span><br></pre></td></tr></table></figure></p>
+<p>这一句addPreferencesFromResource()方法找到其对应的Preference界面/alps/packages/apps/Settings/res_ext/xml/edit_profile_prefs.xml<br>查看这个Preference文件，我们可以发现PreferenceScreen标签包裹整个界面，使用PreferenceCategory标签将整个界面<br>分为general及System（feedback）两个模块，通过具体的Preference来实现界面列。（对于Preference，重点关注其key属性，它类似于一般界面的id属性）<br>通过在手机界面查找，发现点击后Phone ringtone会进入一个铃声选择的界面，ok，目标已经确定，我们现在来分析这个铃声选择功能的具体过程。<br>点击Phone ringtone跳转至铃声选择界面<br>目光自然聚集在这个”点击“上，查看Editprofile.java，在变量定义的地方发现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String KEY_RINGTONE = <span class="string">"phone_ringtone"</span>;</span><br></pre></td></tr></table></figure></p>
+<p> 可以看出这个字串与我们要找的功能相关。<br> 对KEY_RINGTONE在Editprofile.java文件中进行搜索，发现它出现在以下两个位置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initRingtone</span><span class="params">(PreferenceScreen parent)</span> </span>&#123;</span><br><span class="line">       mVoiceRingtone = (DefaultRingtonePreference) parent.findPreference(KEY_RINGTONE);</span><br><span class="line">       ...</span><br><span class="line">&#125; <span class="comment">//可以看出此处在初始化mVoiceRingtone变量</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreferenceTreeClick</span><span class="params">(PreferenceScreen preferenceScreen,</span><br><span class="line">          Preference preference)</span> </span>&#123;</span><br><span class="line">      Log.d(<span class="string">"@M_"</span> + TAG, <span class="string">"Key :"</span> + preference.getKey());</span><br><span class="line">      <span class="keyword">if</span> ((preference.getKey()).equals(KEY_RINGTONE)) &#123;  <span class="comment">//在这里对preference.getKey()与KEY_RINGTONE进行判断</span></span><br><span class="line">          setRingtongTypeAndStartSIMSelector(RINGTONE_INDEX);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((preference.getKey()).equals(KEY_VIDEO_RINGTONE)) &#123;</span><br><span class="line">          setRingtongTypeAndStartSIMSelector(VIDEO_RINGTONE_INDEX);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">super</span>.onPreferenceTreeClick(preferenceScreen, preference);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>在第二个位置我们发现了它所在的方法是<code>onPreferenceTreeClick()</code>，通过之前对于Preference方面的学习知道，<br>对Preference的点击一般会触发该方法。但是它到底怎么被触发的呢，点击事件一般不是触发onClick()方法吗？<br>带着这个问题我们继续分析。<br>查看edit_profile_prefs.xml文件发现，phone_ringtone使用自定义的DefaultRingtonePreference<br> <com.mediatek.audioprofile.defaultringtonepreference android:key="phone_ringtone" ...=""><br>查看DefaultRingtonePreference.java文件。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultRingtonePreference</span> <span class="keyword">extends</span> <span class="title">RingtonePreference</span> </span>&#123;</span><br></pre></td></tr></table></figure></com.mediatek.audioprofile.defaultringtonepreference></p>
+<p>发现其继承自RingtonePreference，查看RingtonePreference文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RingtonePreference</span> <span class="keyword">extends</span> <span class="title">Preference</span> <span class="keyword">implements</span></span><br><span class="line">        <span class="title">PreferenceManager</span>.<span class="title">OnActivityResultListener</span> </span>&#123;</span><br><span class="line">发现RingtonePreference继承自Preference</span><br></pre></td></tr></table></figure></p>
+<p>通过查看DefaultRingtonePreference，RingtonePreference，Preference文件，发现<br>DefaultRingtonePreference有onClick()方法,RingtonePreference中有onClick()方法，Preference中有performClick(),onClick()方法。<br>查看到这里仿佛进入了瓶颈，这么多点击触发的方法好像都有用，但具体哪一个被调用，哪一个先被触发，哪一个点击过后进行了界面跳转进入了铃声选择界面呢？<br>对于这个问题，先对以上各个方法进行逐一查看，随后在其中逐一加入<br>Log.w(“@M_” + TAG, “Preference performClick”);<br>等log输出语句，打算通过查看log，来确定方法的先后调用问题。</p>
+<p><img src="http://i4.piimg.com/9757e7ff169c115a.png" alt="log图片："></p>
+<p>通过图片中部的log发现Preference.performClick()方法最先被调用，<br>接下来是DefaultRingtonePreference.onClick()<br>再接下来是RingtonePreference.onClick(),<br>再到Editprofile.onPreferenceTreeClick(),<br>最后在PreferenceFragment.onPreferenceTreeClick()</p>
+<p>所以我们先去查看Preference的performClick()<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performClick</span><span class="params">(PreferenceScreen preferenceScreen)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Log.w(<span class="string">"@M_"</span> + TAG, <span class="string">"Preference performClick"</span>);</span><br><span class="line">        <span class="keyword">if</span> (!isEnabled()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        onClick();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (mOnClickListener != <span class="keyword">null</span> &amp;&amp; mOnClickListener.onPreferenceClick(<span class="keyword">this</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        PreferenceManager preferenceManager = getPreferenceManager();</span><br><span class="line">        <span class="keyword">if</span> (preferenceManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            PreferenceManager.OnPreferenceTreeClickListener listener = preferenceManager</span><br><span class="line">                    .getOnPreferenceTreeClickListener();</span><br><span class="line">            <span class="keyword">if</span> (preferenceScreen != <span class="keyword">null</span> &amp;&amp; listener != <span class="keyword">null</span></span><br><span class="line">                    &amp;&amp; listener.onPreferenceTreeClick(preferenceScreen, <span class="keyword">this</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (mIntent != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Context context = getContext();</span><br><span class="line">            context.startActivity(mIntent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到performClick()方法先调用了Preference的onClick();<br>那onClick()呢？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一个被保护的空方法！！意味着它将被它的子类所复写。<br>回顾一下之前查看的Preference的继承关系：<br>DefaultRingtonePreference-&gt;RingtonePreference-&gt;Preference<br>根据java面向对象方面的知识，Preference的onClick()将被DefaultRingtonePreference的onClick()所复写。<br>查看DefaultRingtonePreference的onClick()<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// M: Set different SIM ringtone</span></span><br><span class="line">        <span class="comment">// modified by mtk54031</span></span><br><span class="line">        <span class="keyword">final</span> TelephonyManager mTeleManager = (TelephonyManager) getContext()</span><br><span class="line">                .getSystemService(Context.TELEPHONY_SERVICE);</span><br><span class="line">        <span class="comment">//int simNum = mTeleManager.getSimCount();</span></span><br><span class="line">        <span class="keyword">int</span> simNum = SubscriptionManager.from(getContext()).getActiveSubscriptionInfoCount();</span><br><span class="line">        Log.d(<span class="string">"@M_"</span> + TAG, <span class="string">"onClick  : isNoNeedSIMSelector = "</span> + isNoNeedSIMSelector()</span><br><span class="line">                + <span class="string">"simNum &lt;= SINGLE_SIMCARD: simNum = "</span> + simNum);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (FeatureOption.MTK_MULTISIM_RINGTONE_SUPPORT &amp;&amp; simNum == SINGLE_SIMCARD) &#123;</span><br><span class="line">           <span class="keyword">int</span> subId = SubscriptionManager.from(getContext()).getActiveSubscriptionIdList()[<span class="number">0</span>];</span><br><span class="line">           setSimId(subId);</span><br><span class="line">           <span class="comment">//setSimId(1);</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (isNoNeedSIMSelector() || simNum &lt;= SINGLE_SIMCARD) &#123;</span><br><span class="line">            <span class="comment">//关注这里，在这里调用了DefaultRingtonePreference的父类，也就是RingtonePreference的onclick方法</span></span><br><span class="line">            <span class="keyword">super</span>.onClick();   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">``` </span><br><span class="line">此时可以发现我们对于从Preference.performClick()开始的关于onClick方法的推理与log实际打印出的顺序是一致的！</span><br><span class="line">Preference.performClick()方法最先被调用，</span><br><span class="line">Preference.performClick()方法调Preference.onClick();</span><br><span class="line">Preference.onClick()被DefaultRingtonePreference.onClick()复写</span><br><span class="line">DefaultRingtonePreference.onClick()执行<span class="keyword">super</span>.onClick()调RingtonePreference.onClick(),</span><br><span class="line"></span><br><span class="line">同时，在RingtonePreference.onClick()中看到了startActivityForResult(intent, mRequestCode); Activity返回值的跳转</span><br><span class="line">意味着饶了一大圈实际进行选择铃音跳转的位置在这里，RingtonePreference.onClick()。</span><br><span class="line">RingtonePreference的onClick()</span><br><span class="line">```<span class="function">java</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Log.w(<span class="string">"@M_"</span> + TAG, <span class="string">"RingtonePreference  onClick()"</span>);</span><br><span class="line">        <span class="comment">// Launch the ringtone picker</span></span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(RingtoneManager.ACTION_RINGTONE_PICKER);</span><br><span class="line">        onPrepareRingtonePickerIntent(intent);</span><br><span class="line">        PreferenceFragment owningFragment = getPreferenceManager().getFragment();</span><br><span class="line">        <span class="keyword">if</span> (owningFragment != <span class="keyword">null</span>) &#123;</span><br><span class="line">            owningFragment.startActivityForResult(intent, mRequestCode);<span class="comment">//Activity返回值的跳转</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            getPreferenceManager().getActivity().startActivityForResult(intent, mRequestCode);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>铃声跳转intent的action为ACTION_RINGTONE_PICKER，<br>public static final String ACTION_RINGTONE_PICKER = “android.intent.action.RINGTONE_PICKER”;<br>对其全局查找，找到了以下信息<br> @see RingtoneManager#ACTION_RINGTONE_PICKER</p>
+<p>public final class RingtonePickerActivity extends AlertActivity implements</p>
+<p>查看RingtonePickerActivity，发现它即是我们要找的铃声选择的界面Activity。</p>
+<p>现在我们关于onClick()方法的调用过程清楚了及其功能大体清楚。但是最开始的Editprofile.onPreferenceTreeClick()方法呢？<br>回到Preference的performClick()<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performClick</span><span class="params">(PreferenceScreen preferenceScreen)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Log.w(<span class="string">"@M_"</span> + TAG, <span class="string">"Preference performClick"</span>);</span><br><span class="line">        <span class="keyword">if</span> (!isEnabled()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        onClick();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (mOnClickListener != <span class="keyword">null</span> &amp;&amp; mOnClickListener.onPreferenceClick(<span class="keyword">this</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        PreferenceManager preferenceManager = getPreferenceManager();</span><br><span class="line">        <span class="keyword">if</span> (preferenceManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            PreferenceManager.OnPreferenceTreeClickListener listener = preferenceManager</span><br><span class="line">                    .getOnPreferenceTreeClickListener();</span><br><span class="line">            <span class="keyword">if</span> (preferenceScreen != <span class="keyword">null</span> &amp;&amp; listener != <span class="keyword">null</span></span><br><span class="line">                    &amp;&amp; listener.onPreferenceTreeClick(preferenceScreen, <span class="keyword">this</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (mIntent != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Context context = getContext();</span><br><span class="line">            context.startActivity(mIntent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到performClick()中调用完onClick()后会调用listener.onPreferenceTreeClick(preferenceScreen, this)<br>从preference中如何调用Editprofile中的方法呢？它们之间又没有继承关系。<br>回到Editprofile，发现<br>public class Editprofile extends SettingsPreferenceFragment {<br>而SettingsPreferenceFragment：<br>public abstract class SettingsPreferenceFragment extends InstrumentedPreferenceFragment<br>InstrumentedPreferenceFragment：<br>public abstract class InstrumentedPreferenceFragment extends PreferenceFragment {<br>PreferenceFragment：<br>public abstract class PreferenceFragment extends Fragment implements<br>        PreferenceManager.OnPreferenceTreeClickListener {<br>终于，在多次的继承关系后我们发现PreferenceFragment实现PreferenceManager.OnPreferenceTreeClickListener<br>接口。在PreferenceFragment.onStart()<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onStart();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (DBG) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">"onStart, this = "</span> + <span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mPreferenceManager.setOnPreferenceTreeClickListener(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里设置了OnPreferenceTreeClick的监听器，<br>PreferenceFragment.onPreferenceTreeClick:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreferenceTreeClick</span><span class="params">(PreferenceScreen preferenceScreen,</span><br><span class="line">            Preference preference)</span> </span>&#123;</span><br><span class="line">        Log.w(<span class="string">"@M_"</span> + TAG, <span class="string">"PreferenceFragment onPreferenceTreeClick"</span>);</span><br><span class="line">        <span class="keyword">if</span> (preference.getFragment() != <span class="keyword">null</span> &amp;&amp;</span><br><span class="line">                getActivity() <span class="keyword">instanceof</span> OnPreferenceStartFragmentCallback) &#123;</span><br><span class="line">            <span class="keyword">return</span> ((OnPreferenceStartFragmentCallback)getActivity()).onPreferenceStartFragment(</span><br><span class="line">                    <span class="keyword">this</span>, preference);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>根据之前的继承关系，Editprofile.onPreferenceTreeClick()将复写PreferenceFragment.onPreferenceTreeClick()<br>Editprofile.onPreferenceTreeClick()：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreferenceTreeClick</span><span class="params">(PreferenceScreen preferenceScreen,</span><br><span class="line">            Preference preference)</span> </span>&#123;</span><br><span class="line">        Log.d(<span class="string">"@M_"</span> + TAG, <span class="string">"Key :"</span> + preference.getKey());</span><br><span class="line">        <span class="keyword">if</span> ((preference.getKey()).equals(KEY_RINGTONE)) &#123;</span><br><span class="line">            setRingtongTypeAndStartSIMSelector(RINGTONE_INDEX);<span class="comment">//设置铃音类型及sim卡id</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((preference.getKey()).equals(KEY_VIDEO_RINGTONE)) &#123;</span><br><span class="line">            setRingtongTypeAndStartSIMSelector(VIDEO_RINGTONE_INDEX);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//调PreferenceFragment的onPreferenceTreeClick()</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onPreferenceTreeClick(preferenceScreen, preference);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>performClick()中调用listener.onPreferenceTreeClick()调用；Editprofile.onPreferenceTreeClick()<br>Editprofile.onPreferenceTreeClick()调super.onPreferenceTreeClick()。这个顺序与log顺序也一致。</p>
+<p>此时，完成了点击铃音选择的跳转过程分析，分析暂时到此。</p>
+<p>通过之前的分析，发现在查看此处代码时，往往有很深的继承关系(带来复杂的函数重载及复写)，且类与类之间的相互调用也很复杂。<br>最开始只能看到一个函数，一个点，需要不断的查看其深层次的关系及方法调用。在查找时常会用到全局查找，会有很多干扰数据，<br>要学习从中辨别寻找实际需要的。同时，在推理分析时多查看log，log是最准确的结论。</p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/study/" rel="tag">#study</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/10/scp命令/" rel="next" title="scp命令">
+                <i class="fa fa-chevron-left"></i> scp命令
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/20/Perference_onClick总结/"
+           data-title="Perference_onClick总结" data-url="http://shaohuan.top/2016/03/20/Perference_onClick总结/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="邵欢" />
+          <p class="site-author-name" itemprop="name">邵欢</p>
+          <p class="site-description motion-element" itemprop="description">业余玩家</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/canyeshao" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/shao-huan-3" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/141039306" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 豆瓣
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tieba.baidu.com/home/main?un=%D2%F4%B2%D4&from=tieba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 贴吧
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+  
+  &copy;  20160124 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邵欢</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shaohuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>
